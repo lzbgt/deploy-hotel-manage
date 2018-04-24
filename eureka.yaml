@@ -31,7 +31,7 @@ spec:
   - protocol: TCP
     port: 80
     targetPort: 80
-    nodePort: 30162
+    nodePort: 30163
     name: eureka
   type: NodePort
   selector:
