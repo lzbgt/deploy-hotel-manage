@@ -41,7 +41,7 @@ data:
       trackerList: 192.168.50.33:22129
     #########imgUrl############
     fastdfs: 
-      img-url: http://s1.veimg.cn/wkxhotel
+      img-url: https://s1.veimg.cn/wkxhotel
 
     #########eureka############
     eureka:
