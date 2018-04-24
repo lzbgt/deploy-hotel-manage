@@ -75,7 +75,7 @@ spec:
     spec:
       containers:
       - name: service-file
-        image: docker-registry.cluster.dfwsgroup.cn/library/service-file:1.0
+        image: docker-registry.cluster.dfwsgroup.cn/library/wkxhotel-file:1.0
         imagePullPolicy: Always
         resources:
           requests:
