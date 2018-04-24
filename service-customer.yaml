@@ -27,9 +27,9 @@ data:
       datasource:
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://10.10.50.239:3306/dfws_wkxhotel?useUnicode=true&characterEncoding=utf8
-        username: test
-        password: test.2016
+        url: jdbc:mysql://192.168.50.134:3308/dfws_wkxhotel?useUnicode=true&characterEncoding=utf8
+        username: dfws_wkxhotel
+        password: dfws_wkxhotel_20180424
         initialSize: 1
         minIdle: 3
         maxActive: 20
@@ -52,7 +52,7 @@ data:
         connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
         # 合并多个DruidDataSource的监控数据
         #useGlobalDataSourceStat: true
-        
+
     #########eureka############
     eureka:
       instance:
@@ -111,7 +111,7 @@ spec:
     spec:
       containers:
       - name: hotel-customer
-        image: docker-registry.cluster.dfwsgroup.cn/library/hotel-customer:1.0
+        image: docker-registry.cluster.dfwsgroup.cn/library/wkxhotel-web-customer:1.0
         imagePullPolicy: Always
         resources:
           requests:
