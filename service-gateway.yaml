@@ -1,14 +1,14 @@
-# hotel-file cluster
+# service-file cluster
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: hotel-file
+  name: service-file
   labels:
-    app: hotel-file
+    app: service-file
 spec:
   selector:
-    app: hotel-file
+    app: service-file
   ports:
   - protocol: TCP
     port: 80
@@ -17,31 +17,39 @@ spec:
 apiVersion: v1
 data:
   application-kube.yml: |-
-    server:
-      port: 80
-    logging:
-      config: classpath:env/prod/logback.xml      
-    spring:
-      application:
-        name: wkxhotel-file
-      jackson:
-        date-format: yyyy-MM-dd HH:mm:ss
-        joda-date-time-format: yyyy-MM-dd HH:mm:ss
-        time-zone: GMT+8
-      jmx:
-        enabled: false
+  server:
+    port: 80
+    #ssl:
+    #  key-store: classpath:keystore.p12
+    #  key-store-password: tomcatadmin
+    #  keyStoreType: PKCS12   
+  logging:
+    config: classpath:env/dev/logback.xml
+  
+  spring:
+    application:
+      name: wkxhotel-service-gateway
 
-    #########fastdfs###########
-    fdfs:
-      thumb-image:
-        height: 150
-        width: 150
-      soTimeout: 50
-      connectTimeout: 2
-      trackerList: 192.168.50.4:22125
-    #########imgUrl############
-    fastdfs: 
-      img-url: http://s1.veimg.cn/meadin/
+  #########eureka############
+  eureka:
+    client:
+      service-url:
+        defaultZone: http://admin:1q2w3e4r@localhost:1115/eureka/
+
+  #########ribbon############  
+  ribbon:  
+    ReadTimeout: 10000
+    ConnectTimeout: 10000
+
+  zuul:
+    routes:
+      wkxhotel-web-waiter:
+        path: /**
+        serviceId: wkxhotel-web-waiter
+        
+      wkxhotel-web-customer:  
+        path: /**
+        serviceId: wkxhotel-web-customer
 
     #########eureka############
     eureka:
@@ -54,26 +62,26 @@ data:
 
 kind: ConfigMap
 metadata:
-  name: hotel-fileconfig
+  name: service-fileconfig
 ---
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: hotel-file
+  name: service-file
   labels:
-    app: hotel-file
+    app: service-file
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hotel-file
+      app: service-file
   template:
     metadata:
       labels:
-        app: hotel-file
+        app: service-file
     spec:
       containers:
-      - name: hotel-file
+      - name: service-file
         image: docker-registry.cluster.dfwsgroup.cn/library/wkxhotel-file:1.0
         imagePullPolicy: Always
         resources:
@@ -86,10 +94,10 @@ spec:
         ports:
         - containerPort: 80
         volumeMounts:
-        - name: hotel-file-config
+        - name: service-file-config
           mountPath: /config
       volumes:
-      - name: hotel-file-config
+      - name: service-file-config
         configMap:
-          name: hotel-fileconfig
+          name: service-fileconfig
 

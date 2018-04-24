@@ -52,17 +52,6 @@ data:
         connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
         # 合并多个DruidDataSource的监控数据
         #useGlobalDataSourceStat: true
-
-
-    #########eureka############
-    eureka:
-          instance:
-            preferIpAddress: true
-          client:
-            registerWithEureka: true
-            service-url:
-              defaultZone: http://admin:123456@eureka-0.eureka:80/eureka/,http://admin:123456@eureka-1.eureka:80/eureka/,http://admin:123456@eureka-2.eureka:80/eureka/
-      
     ###########mybatis#############
     mybatis:
       config-location: classpath:mybatis-config.xml
@@ -83,7 +72,16 @@ data:
       appid: wx40ffaae1d7504c6b
       secret: fd6aba2bddf077fbc22e6ab7ffef7a15
       service:
-        id: 1Z4KvXdZv18SXxWtlKPfcl-UP3kh6gHbP0rDb_vsMjU   
+        id: 1Z4KvXdZv18SXxWtlKPfcl-UP3kh6gHbP0rDb_vsMjU 
+        
+    #########eureka############
+    eureka:
+          instance:
+            preferIpAddress: true
+          client:
+            registerWithEureka: true
+            service-url:
+              defaultZone: http://admin:123456@eureka-0.eureka:80/eureka/,http://admin:123456@eureka-1.eureka:80/eureka/,http://admin:123456@eureka-2.eureka:80/eureka/  
 kind: ConfigMap
 metadata:
   name: hotel-waiterconfig
@@ -145,4 +143,3 @@ spec:
         backend:
           serviceName: hotel-waiter
           servicePort: 80
-

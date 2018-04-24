@@ -1,14 +1,14 @@
-# hotel-file cluster
+# hotel-job cluster
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: hotel-file
+  name: hotel-job
   labels:
-    app: hotel-file
+    app: hotel-job
 spec:
   selector:
-    app: hotel-file
+    app: hotel-job
   ports:
   - protocol: TCP
     port: 80
@@ -20,29 +20,21 @@ data:
     server:
       port: 80
     logging:
-      config: classpath:env/prod/logback.xml      
+      config: classpath:env/prod/logback.xml
+      
     spring:
       application:
-        name: wkxhotel-file
-      jackson:
-        date-format: yyyy-MM-dd HH:mm:ss
-        joda-date-time-format: yyyy-MM-dd HH:mm:ss
-        time-zone: GMT+8
-      jmx:
-        enabled: false
-
-    #########fastdfs###########
-    fdfs:
-      thumb-image:
-        height: 150
-        width: 150
-      soTimeout: 50
-      connectTimeout: 2
-      trackerList: 192.168.50.4:22125
-    #########imgUrl############
-    fastdfs: 
-      img-url: http://s1.veimg.cn/meadin/
-
+        name: wkxhotel-job
+    #########redis############    
+      redis:
+        database: 4
+        host: 192.168.50.46
+        password: dfws.2017
+        port: 6379
+        pool:
+          max-idle: 8
+        timeout: 10000
+        
     #########eureka############
     eureka:
       instance:
@@ -54,27 +46,27 @@ data:
 
 kind: ConfigMap
 metadata:
-  name: hotel-fileconfig
+  name: hotel-jobconfig
 ---
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: hotel-file
+  name: hotel-job
   labels:
-    app: hotel-file
+    app: hotel-job
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hotel-file
+      app: hotel-job
   template:
     metadata:
       labels:
-        app: hotel-file
+        app: hotel-job
     spec:
       containers:
-      - name: hotel-file
-        image: docker-registry.cluster.dfwsgroup.cn/library/wkxhotel-file:1.0
+      - name: hotel-job
+        image: docker-registry.cluster.dfwsgroup.cn/library/wkxhotel-job:1.0
         imagePullPolicy: Always
         resources:
           requests:
@@ -86,10 +78,10 @@ spec:
         ports:
         - containerPort: 80
         volumeMounts:
-        - name: hotel-file-config
+        - name: hotel-job-config
           mountPath: /config
       volumes:
-      - name: hotel-file-config
+      - name: hotel-job-config
         configMap:
-          name: hotel-fileconfig
+          name: hotel-jobconfig
 

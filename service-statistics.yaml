@@ -1,14 +1,14 @@
-# hotel-customer cluster
+# hotel-statistics cluster
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: hotel-customer
+  name: hotel-statistics
   labels:
-    app: hotel-customer
+    app: hotel-statistics
 spec:
   selector:
-    app: hotel-customer
+    app: hotel-statistics
   ports:
   - protocol: TCP
     port: 80
@@ -20,16 +20,16 @@ data:
     server:
       port: 80
     logging:
-      config: classpath:env/prod/logback.xml
+      config: classpath:env/prod/logback.xml      
     spring:
       application:
-        name: wkxhotel-web-customer
+        name: wkxhotel-service-statistics
       datasource:
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://10.10.50.239:3306/dfws_wkxhotel?useUnicode=true&characterEncoding=utf8
+        url: jdbc:mysql://10.10.50.238:3306/dfws_wkxhotel?useUnicode=true&characterEncoding=utf8
         username: test
-        password: test.2016
+        password: test
         initialSize: 1
         minIdle: 3
         maxActive: 20
@@ -52,7 +52,19 @@ data:
         connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
         # 合并多个DruidDataSource的监控数据
         #useGlobalDataSourceStat: true
-        
+          
+    ###########mybatis#############
+    mybatis:
+    config-location:
+      classpath:mybatis-config.xml
+    mapper-locations:
+      classpath:com/wkxhotel/service/statistics/mapping/*.xml
+      ###########短信消息#############
+    sms: 
+      sendUrl: http://sms-interface.dfwsgroup.com/rest/v1/single_sms
+      signatureCode: md
+      arrangeProject: 五颗星
+
     #########eureka############
     eureka:
       instance:
@@ -61,57 +73,30 @@ data:
         registerWithEureka: true
         service-url:
           defaultZone: http://admin:123456@eureka-0.eureka:80/eureka/,http://admin:123456@eureka-1.eureka:80/eureka/,http://admin:123456@eureka-2.eureka:80/eureka/
-         
-    websocket:
-      webSocketUrl: ws://10.10.38.211:5690/wkxhotel
-      topicUrl: /ws-push/welcome
-    sms: 
-      sendUrl: http://sms-interface.dfwsgroup.com/rest/v1/single_sms
-      signatureCode: wkx
-      arrangeProject: 五颗星
-      templateCode: 1093
-    compress: 
-      picture_url: _150x150
-    customer: 
-      appid: wx46d241f107517171
-      secret: b03b8d6eff09c4eaeee9f57e7722270e
-    waiter: 
-      appid: wx40ffaae1d7504c6b
-      secret: fd6aba2bddf077fbc22e6ab7ffef7a15
-    wxmatemplate: 
-      templateIdCust: E_08M64is4J_kpdm-haI-huX-OmzfZ4jqxOtIS7hTFQ
-      templateIdWaiter: 1Z4KvXdZv18SXxWtlKPfcl-UP3kh6gHbP0rDb_vsMjU
-      pageOrderCust: /pages/userServer/userServer
-      pageOrderWaiter: /pages/index/index
-    ###########mybatis#############
-    mybatis:
-    config-location:
-      classpath:mybatis-config.xml
-    mapper-locations:
-      classpath:com/wkxhotel/web/customer/mapping/*.xml
+
 kind: ConfigMap
 metadata:
-  name: hotel-customerconfig
+  name: hotel-statisticsconfig
 ---
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: hotel-customer
+  name: hotel-statistics
   labels:
-    app: hotel-customer
+    app: hotel-statistics
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hotel-customer
+      app: hotel-statistics
   template:
     metadata:
       labels:
-        app: hotel-customer
+        app: hotel-statistics
     spec:
       containers:
-      - name: hotel-customer
-        image: docker-registry.cluster.dfwsgroup.cn/library/hotel-customer:1.0
+      - name: hotel-statistics
+        image: docker-registry.cluster.dfwsgroup.cn/library/wkxhotel-service-statistics:1.0
         imagePullPolicy: Always
         resources:
           requests:
@@ -123,31 +108,9 @@ spec:
         ports:
         - containerPort: 80
         volumeMounts:
-        - name: hotel-customer-config
+        - name: hotel-statistics-config
           mountPath: /config
       volumes:
-      - name: hotel-customer-config
+      - name: hotel-statistics-config
         configMap:
-          name: hotel-customerconfig
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: hotel-customer
-  annotations:
-    #kubernetes.io/tls-acme: "true"
-    kubernetes.io/ingress.class: "nginx"
-spec:
-  #tls:
-  #- hosts:
-  #  - hotel-customer.cluster.dfwsgroup.cn
-  #  secretName: hotel-customer-tls
-  rules:
-  - host: hotel-customer.cluster.dfwsgroup.cn
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: hotel-customer
-          servicePort: 80
-
+          name: hotel-statisticsconfig

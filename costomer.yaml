@@ -1,14 +1,14 @@
-# hotel-file cluster
+# hotel-customer cluster
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: hotel-file
+  name: hotel-customer
   labels:
-    app: hotel-file
+    app: hotel-customer
 spec:
   selector:
-    app: hotel-file
+    app: hotel-customer
   ports:
   - protocol: TCP
     port: 80
@@ -54,26 +54,26 @@ data:
 
 kind: ConfigMap
 metadata:
-  name: hotel-fileconfig
+  name: hotel-customerconfig
 ---
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: hotel-file
+  name: hotel-customer
   labels:
-    app: hotel-file
+    app: hotel-customer
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hotel-file
+      app: hotel-customer
   template:
     metadata:
       labels:
-        app: hotel-file
+        app: hotel-customer
     spec:
       containers:
-      - name: hotel-file
+      - name: hotel-customer
         image: docker-registry.cluster.dfwsgroup.cn/library/wkxhotel-file:1.0
         imagePullPolicy: Always
         resources:
@@ -86,10 +86,9 @@ spec:
         ports:
         - containerPort: 80
         volumeMounts:
-        - name: hotel-file-config
+        - name: hotel-customer-config
           mountPath: /config
       volumes:
-      - name: hotel-file-config
+      - name: hotel-customer-config
         configMap:
-          name: hotel-fileconfig
-
+          name: hotel-customerconfig
