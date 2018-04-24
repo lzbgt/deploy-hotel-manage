@@ -1,0 +1,87 @@
+# hotel-redis cluster
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: hotel-redis
+  labels:
+    app: hotel-redis
+spec:
+  selector:
+    app: hotel-redis
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+---
+apiVersion: v1
+data:
+  application-kube.yml: |-
+    server:
+      port: 80
+    logging:
+      config: classpath:env/prod/logback.xml
+      
+    spring:
+      application:
+        name: wkxhotel-redis
+    #########redis############    
+      redis:
+        database: 4
+        host: 192.168.50.46
+        password: dfws.2017
+        port: 6379
+        pool:
+          max-idle: 8
+        timeout: 10000
+        
+    #########eureka############
+    eureka:
+      instance:
+        preferIpAddress: true
+      client:
+        registerWithEureka: true
+        service-url:
+          defaultZone: http://admin:123456@eureka-0.eureka:80/eureka/,http://admin:123456@eureka-1.eureka:80/eureka/,http://admin:123456@eureka-2.eureka:80/eureka/
+
+kind: ConfigMap
+metadata:
+  name: hotel-redisconfig
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: hotel-redis
+  labels:
+    app: hotel-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hotel-redis
+  template:
+    metadata:
+      labels:
+        app: hotel-redis
+    spec:
+      containers:
+      - name: hotel-redis
+        image: docker-registry.cluster.dfwsgroup.cn/library/wkxhotel-redis:1.0
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "300Mi"
+            cpu: "250m"
+          limits:
+            memory: "2000Mi"
+            cpu: "2000m"
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: hotel-redis-config
+          mountPath: /config
+      volumes:
+      - name: hotel-redis-config
+        configMap:
+          name: hotel-redisconfig
+
