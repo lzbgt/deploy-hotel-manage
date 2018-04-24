@@ -1,14 +1,14 @@
-# service-file cluster
+# hotel-gateway cluster
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: service-file
+  name: hotel-gateway
   labels:
-    app: service-file
+    app: hotel-gateway
 spec:
   selector:
-    app: service-file
+    app: hotel-gateway
   ports:
   - protocol: TCP
     port: 80
@@ -62,27 +62,27 @@ data:
 
 kind: ConfigMap
 metadata:
-  name: service-fileconfig
+  name: hotel-gatewayconfig
 ---
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: service-file
+  name: hotel-gateway
   labels:
-    app: service-file
+    app: hotel-gateway
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: service-file
+      app: hotel-gateway
   template:
     metadata:
       labels:
-        app: service-file
+        app: hotel-gateway
     spec:
       containers:
-      - name: service-file
-        image: docker-registry.cluster.dfwsgroup.cn/library/wkxhotel-file:1.0
+      - name: hotel-gateway
+        image: docker-registry.cluster.dfwsgroup.cn/library/wkxhotel-service-gateway:1.0
         imagePullPolicy: Always
         resources:
           requests:
@@ -94,10 +94,30 @@ spec:
         ports:
         - containerPort: 80
         volumeMounts:
-        - name: service-file-config
+        - name: hotel-gateway-config
           mountPath: /config
       volumes:
-      - name: service-file-config
+      - name: hotel-gateway-config
         configMap:
-          name: service-fileconfig
-
+          name: hotel-gatewayconfig
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hotel-gateway
+  annotations:
+    #kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  #tls:
+  #- hosts:
+  #  - hotel-waiter.cluster.dfwsgroup.cn
+  #  secretName: hotel-waiter-tls
+  rules:
+  - host: hotel-gateway.cluster.dfwsgroup.cn
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: hotel-gateway
+          servicePort: 80
