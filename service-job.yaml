@@ -20,21 +20,30 @@ data:
     server:
       port: 80
     logging:
-      config: classpath:env/prod/logback.xml
-      
+      config: classpath:env/prod/logback.xml      
     spring:
       application:
-        name: wkxhotel-job
-    #########redis############    
-      redis:
-        database: 4
-        host: 192.168.50.46
-        password: dfws.2017
-        port: 6379
-        pool:
-          max-idle: 8
-        timeout: 10000
-        
+        name: wkxhotel-service-job
+    #########xxl############     
+    xxl:
+      job:
+        admin:
+          addresses: 192.168.50.151:8980 
+        executor: 
+          appname: wkxhotel-service-job
+          ip: 192.168.50.151
+          port: 8787
+          logpath: /home/tomcat_logs/wkxhotel-service-job/jobhandler/  
+        accessToken:
+    #########ribbon############
+    ribbon:
+      eureka:
+        enabled: true
+      ReadTimeout: 30000
+      ConnectTimeout: 30000
+      MaxAutoRetries: 0
+      MaxAutoRetriesNextServer: 1
+      OkToRetryOnAllOperations: false  
     #########eureka############
     eureka:
       instance:
