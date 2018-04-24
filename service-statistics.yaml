@@ -27,9 +27,9 @@ data:
       datasource:
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://10.10.50.238:3306/dfws_wkxhotel?useUnicode=true&characterEncoding=utf8
-        username: test
-        password: test
+        url: jdbc:mysql://192.168.50.134:3308/dfws_wkxhotel?useUnicode=true&characterEncoding=utf8
+        username: dfws_wkxhotel
+        password: dfws_wkxhotel_20180424
         initialSize: 1
         minIdle: 3
         maxActive: 20
