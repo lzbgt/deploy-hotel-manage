@@ -25,17 +25,9 @@ data:
       #  keyStoreType: PKCS12   
     logging:
       config: classpath:env/dev/logback.xml
-    
     spring:
       application:
         name: wkxhotel-service-gateway
-
-    #########eureka############
-    eureka:
-      client:
-        service-url:
-          defaultZone: http://admin:1q2w3e4r@localhost:1115/eureka/
-
     #########ribbon############  
     ribbon:  
       ReadTimeout: 10000
@@ -50,7 +42,6 @@ data:
         wkxhotel-web-customer:  
           path: /**
           serviceId: wkxhotel-web-customer
-
       #########eureka############
       eureka:
         instance:
