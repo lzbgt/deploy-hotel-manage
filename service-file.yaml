@@ -38,10 +38,10 @@ data:
         width: 150
       soTimeout: 50
       connectTimeout: 2
-      trackerList: 192.168.50.4:22125
+      trackerList: 192.168.50.33:22129
     #########imgUrl############
     fastdfs: 
-      img-url: http://s1.veimg.cn/meadin/
+      img-url: http://s1.veimg.cn/wkxhotel
 
     #########eureka############
     eureka:
