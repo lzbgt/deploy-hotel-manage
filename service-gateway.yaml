@@ -17,48 +17,48 @@ spec:
 apiVersion: v1
 data:
   application-kube.yml: |-
-  server:
-    port: 80
-    #ssl:
-    #  key-store: classpath:keystore.p12
-    #  key-store-password: tomcatadmin
-    #  keyStoreType: PKCS12   
-  logging:
-    config: classpath:env/dev/logback.xml
-  
-  spring:
-    application:
-      name: wkxhotel-service-gateway
-
-  #########eureka############
-  eureka:
-    client:
-      service-url:
-        defaultZone: http://admin:1q2w3e4r@localhost:1115/eureka/
-
-  #########ribbon############  
-  ribbon:  
-    ReadTimeout: 10000
-    ConnectTimeout: 10000
-
-  zuul:
-    routes:
-      wkxhotel-web-waiter:
-        path: /**
-        serviceId: wkxhotel-web-waiter
-        
-      wkxhotel-web-customer:  
-        path: /**
-        serviceId: wkxhotel-web-customer
+    server:
+      port: 80
+      #ssl:
+      #  key-store: classpath:keystore.p12
+      #  key-store-password: tomcatadmin
+      #  keyStoreType: PKCS12   
+    logging:
+      config: classpath:env/dev/logback.xml
+    
+    spring:
+      application:
+        name: wkxhotel-service-gateway
 
     #########eureka############
     eureka:
-      instance:
-        preferIpAddress: true
       client:
-        registerWithEureka: true
         service-url:
-          defaultZone: http://admin:123456@eureka-0.eureka:80/eureka/,http://admin:123456@eureka-1.eureka:80/eureka/,http://admin:123456@eureka-2.eureka:80/eureka/
+          defaultZone: http://admin:1q2w3e4r@localhost:1115/eureka/
+
+    #########ribbon############  
+    ribbon:  
+      ReadTimeout: 10000
+      ConnectTimeout: 10000
+
+    zuul:
+      routes:
+        wkxhotel-web-waiter:
+          path: /**
+          serviceId: wkxhotel-web-waiter
+          
+        wkxhotel-web-customer:  
+          path: /**
+          serviceId: wkxhotel-web-customer
+
+      #########eureka############
+      eureka:
+        instance:
+          preferIpAddress: true
+        client:
+          registerWithEureka: true
+          service-url:
+            defaultZone: http://admin:123456@eureka-0.eureka:80/eureka/,http://admin:123456@eureka-1.eureka:80/eureka/,http://admin:123456@eureka-2.eureka:80/eureka/
 
 kind: ConfigMap
 metadata:
