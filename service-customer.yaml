@@ -1,0 +1,154 @@
+# hotel-customer cluster
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: hotel-customer
+  labels:
+    app: hotel-customer
+spec:
+  selector:
+    app: hotel-customer
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+---
+apiVersion: v1
+data:
+  application-kube.yml: |-
+    server:
+      port: 80
+    logging:
+      config: classpath:env/prod/logback.xml
+    spring:
+      application:
+        name: wkxhotel-web-customer
+      datasource:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://10.10.50.239:3306/dfws_wkxhotel?useUnicode=true&characterEncoding=utf8
+        username: test
+        password: test.2016
+        initialSize: 1
+        minIdle: 3
+        maxActive: 20
+        # 配置获取连接等待超时的时间
+        maxWait: 60000
+        # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+        timeBetweenEvictionRunsMillis: 60000
+        # 配置一个连接在池中最小生存的时间，单位是毫秒
+        minEvictableIdleTimeMillis: 30000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        # 打开PSCache，并且指定每个连接上PSCache的大小
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+        filters: stat,wall,slf4j
+        # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+        connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+        # 合并多个DruidDataSource的监控数据
+        #useGlobalDataSourceStat: true
+
+    #########eureka############
+    eureka:
+      instance:
+        preferIpAddress: true
+      client:
+        registerWithEureka: true
+        service-url:
+          defaultZone: http://admin:123456@eureka-0.eureka:80/eureka/,http://admin:123456@eureka-1.eureka:80/eureka/,http://admin:123456@eureka-2.eureka:80/eureka/
+
+          
+    websocket:
+      webSocketUrl: ws://10.10.38.211:5690/wkxhotel
+      topicUrl: /ws-push/welcome
+    sms: 
+      sendUrl: http://sms-interface.dfwsgroup.com/rest/v1/single_sms
+      signatureCode: wkx
+      arrangeProject: 五颗星
+      templateCode: 1093
+    compress: 
+      picture_url: _150x150
+    customer: 
+      appid: wx46d241f107517171
+      secret: b03b8d6eff09c4eaeee9f57e7722270e
+    waiter: 
+      appid: wx40ffaae1d7504c6b
+      secret: fd6aba2bddf077fbc22e6ab7ffef7a15
+    wxmatemplate: 
+      templateIdCust: E_08M64is4J_kpdm-haI-huX-OmzfZ4jqxOtIS7hTFQ
+      templateIdWaiter: 1Z4KvXdZv18SXxWtlKPfcl-UP3kh6gHbP0rDb_vsMjU
+      pageOrderCust: /pages/userServer/userServer
+      pageOrderWaiter: /pages/index/index
+    ###########mybatis#############
+    mybatis:
+    config-location:
+      classpath:mybatis-config.xml
+    mapper-locations:
+      classpath:com/wkxhotel/web/customer/mapping/*.xml
+kind: ConfigMap
+metadata:
+  name: hotel-customerconfig
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: hotel-customer
+  labels:
+    app: hotel-customer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hotel-customer
+  template:
+    metadata:
+      labels:
+        app: hotel-customer
+    spec:
+      containers:
+      - name: hotel-customer
+        image: docker-registry.cluster.dfwsgroup.cn/library/hotel-customer:1.0
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "300Mi"
+            cpu: "250m"
+          limits:
+            memory: "2000Mi"
+            cpu: "2000m"
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: hotel-customer-config
+          mountPath: /config
+      volumes:
+      - name: hotel-customer-config
+        configMap:
+          name: hotel-customerconfig
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hotel-customer
+  annotations:
+    #kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  #tls:
+  #- hosts:
+  #  - hotel-customer.cluster.dfwsgroup.cn
+  #  secretName: hotel-customer-tls
+  rules:
+  - host: hotel-customer.cluster.dfwsgroup.cn
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: hotel-customer
+          servicePort: 80
+
