@@ -20,29 +20,66 @@ data:
     server:
       port: 80
     logging:
-      config: classpath:env/prod/logback.xml      
+      config: classpath:env/prod/logback.xml
+
     spring:
       application:
-        name: wkxhotel-file
-      jackson:
-        date-format: yyyy-MM-dd HH:mm:ss
-        joda-date-time-format: yyyy-MM-dd HH:mm:ss
-        time-zone: GMT+8
-      jmx:
-        enabled: false
-
-    #########fastdfs###########
-    fdfs:
-      thumb-image:
-        height: 150
-        width: 150
-      soTimeout: 50
-      connectTimeout: 2
-      trackerList: 192.168.50.4:22125
-    #########imgUrl############
-    fastdfs: 
-      img-url: http://s1.veimg.cn/meadin/
-
+        name: wkxhotel-web-customer
+      datasource:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://192.168.50.134:3308/dfws_wkxhotel?useUnicode=true&characterEncoding=utf8
+        username: dfws_wkxhotel
+        password: dfws_wkxhotel_20180424
+        initialSize: 1
+        minIdle: 3
+        maxActive: 20
+        # 配置获取连接等待超时的时间
+        maxWait: 60000
+        # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+        timeBetweenEvictionRunsMillis: 60000
+        # 配置一个连接在池中最小生存的时间，单位是毫秒
+        minEvictableIdleTimeMillis: 30000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        # 打开PSCache，并且指定每个连接上PSCache的大小
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+        filters: stat,wall,slf4j
+        # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+        connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+        # 合并多个DruidDataSource的监控数据
+        #useGlobalDataSourceStat: true
+    websocket:
+      webSocketUrl: ws://10.10.38.211:5690/wkxhotel
+      topicUrl: /ws-push/welcome
+    sms: 
+      sendUrl: http://sms-interface.dfwsgroup.com/rest/v1/single_sms
+      signatureCode: wkx
+      arrangeProject: 五颗星
+      templateCode: 1093
+    compress: 
+      picture_url: _150x150
+    customer: 
+      appid: wx46d241f107517171
+      secret: b03b8d6eff09c4eaeee9f57e7722270e
+    waiter: 
+      appid: wx40ffaae1d7504c6b
+      secret: fd6aba2bddf077fbc22e6ab7ffef7a15
+    wxmatemplate: 
+      templateIdCust: E_08M64is4J_kpdm-haI-huX-OmzfZ4jqxOtIS7hTFQ
+      templateIdWaiter: 1Z4KvXdZv18SXxWtlKPfcl-UP3kh6gHbP0rDb_vsMjU
+      pageOrderCust: /pages/userServer/userServer
+      pageOrderWaiter: /pages/index/index
+    ###########mybatis#############
+    mybatis:
+    config-location:
+      classpath:mybatis-config.xml
+    mapper-locations:
+      classpath:com/wkxhotel/web/customer/mapping/*.xml
     #########eureka############
     eureka:
       instance:
