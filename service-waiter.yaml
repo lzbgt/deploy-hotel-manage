@@ -104,7 +104,7 @@ spec:
     spec:
       containers:
       - name: hotel-waiter
-        image: docker-registry.cluster.dfwsgroup.cn/library/hotel-waiter:1.0
+        image: docker-registry.cluster.dfwsgroup.cn/library/wkxhotel-web-waiter:1.0
         imagePullPolicy: Always
         resources:
           requests:
