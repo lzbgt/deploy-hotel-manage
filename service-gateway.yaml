@@ -41,14 +41,14 @@ data:
         wkxhotel-web-customer:  
           path: /**
           serviceId: wkxhotel-web-customer
-      #########eureka############
-      eureka:
-        instance:
-          preferIpAddress: true
-        client:
-          registerWithEureka: true
-          service-url:
-            defaultZone: http://admin:123456@eureka-0.eureka:80/eureka/,http://admin:123456@eureka-1.eureka:80/eureka/,http://admin:123456@eureka-2.eureka:80/eureka/
+    #########eureka############
+    eureka:
+      instance:
+        preferIpAddress: true
+      client:
+        registerWithEureka: true
+        service-url:
+          defaultZone: http://admin:123456@eureka-0.eureka:80/eureka/,http://admin:123456@eureka-1.eureka:80/eureka/,http://admin:123456@eureka-2.eureka:80/eureka/
 
 kind: ConfigMap
 metadata:
