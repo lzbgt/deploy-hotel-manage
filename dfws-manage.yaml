@@ -1,14 +1,14 @@
-# hotel-company-manage cluster
+# hotel-dfws-manage cluster
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: hotel-company-manage
+  name: hotel-dfws-manage
   labels:
-    app: hotel-company-manage
+    app: hotel-dfws-manage
 spec:
   selector:
-    app: hotel-company-manage
+    app: hotel-dfws-manage
   ports:
   - protocol: TCP
     port: 80
@@ -23,7 +23,7 @@ data:
       tomcat:
         max-threads: 1000
         min-spare-threads: 30
-      uri-encoding: utf-8  
+      uri-encoding: utf-8
     logging:
       config: classpath:env/prod/logback.xml
     security:
@@ -41,7 +41,7 @@ data:
         mode: LEGACYHTML5
         cache: false
       application:
-        name: wkxhotel-company-manage
+        name: wkxhotel-dfws-manage
       datasource:
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: com.mysql.jdbc.Driver
@@ -72,8 +72,8 @@ data:
         #useGlobalDataSourceStat: true
       redis:
           host: 192.168.50.46
-          port: 6379
           password: dfws.2017
+          port: 6379
           timeout: 10000
           expire: 1800
           pool:
@@ -85,76 +85,50 @@ data:
             max-active: 100
             # 连接池最大阻塞等待时间（使用负值表示没有限制）
             max-wait: -1
+    mybatis:
+      configuration:
+        map-underscore-to-camel-case: true
+      mapper-locations: com/wkxhotel/dfws/manage/mapper/*.xml
+      typeAliasesPackage: com.wkxhotel.**.domain
+    cacheType: ehcache      
+          
+    #########imgUrl############
+    fastdfs: 
+      img-url: http://s1.veimg.cn/meadin/
+    cdn:
+      cnd-link: http://localhost:5880
 
     #########eureka############
     eureka:
-      instance:
-        preferIpAddress: true
-      client:
-        registerWithEureka: true
-        service-url:
-          defaultZone: http://admin:123456@eureka-0.eureka:80/eureka/,http://admin:123456@eureka-1.eureka:80/eureka/,http://admin:123456@eureka-2.eureka:80/eureka/
-          
-    mybatis: 
-      configuration:
-        map-underscore-to-camel-case: true
-      mapper-locations: com/wkxhotel/manage/mapper/*.xml
-      typeAliasesPackage: com.wkxhotel.manage.**.domain
-    wxmaconfig: 
-    #閰嶇疆缂撳瓨鍜宻ession瀛樺偍鏂瑰紡锛岄粯璁hcache,鍙�塺edis
-    cacheType: ehcache      
-
-      appid: wx46d241f107517171
-      secret: b03b8d6eff09c4eaeee9f57e7722270e 
-    menu_icon: 
-      company_info_menu_url: http://f3.v.veimg.cn/wkxhotel/menu_img/
-
-    #########imgUrl############
-    comment_grogshop: 
-      picture_url: http://s1.veimg.cn/9first/
-    wxmatemplate: 
-      templateId: Xv19srUQEANOJ0X_QIaaJ4Q-bWqAWAEqP9CJcMg5Utc
-    waiter: 
-      appid: wx40ffaae1d7504c6b
-      secret: fd6aba2bddf077fbc22e6ab7ffef7a15 
-    waiter_msg_template: 
-      templateIdCust: E_08M64is4J_kpdm-haI-huX-OmzfZ4jqxOtIS7hTFQ
-      templateIdWaiter: 1Z4KvXdZv18SXxWtlKPfcl-UP3kh6gHbP0rDb_vsMjU
-      pageOrderCust: /pages/userServer/userServer
-      pageOrderWaiter: /pages/index/index
-    #########小程序配置信息############
-    miniappConfig: 
-      appid: wx46d241f107517171
-      secret: b03b8d6eff09c4eaeee9f57e7722270e
-      scanToPageBaseUrl: http://f3.v.veimg.cn/meadin/waiter
-    #########cdn配置信息############ 
-    cdn:
-      cnd-link: http://localhost:5980
-
-
+          instance:
+            preferIpAddress: true
+          client:
+            registerWithEureka: true
+            service-url:
+              defaultZone: http://admin:123456@eureka-0.eureka:80/eureka/,http://admin:123456@eureka-1.eureka:80/eureka/,http://admin:123456@eureka-2.eureka:80/eureka/  
 kind: ConfigMap
 metadata:
-  name: hotel-company-manageconfig
+  name: hotel-dfws-manageconfig
 ---
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: hotel-company-manage
+  name: hotel-dfws-manage
   labels:
-    app: hotel-company-manage
+    app: hotel-dfws-manage
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hotel-company-manage
+      app: hotel-dfws-manage
   template:
     metadata:
       labels:
-        app: hotel-company-manage
+        app: hotel-dfws-manage
     spec:
       containers:
-      - name: hotel-company-manage
-        image: docker-registry.cluster.dfwsgroup.cn/library/wkxhotel-company-manage:1.0
+      - name: hotel-dfws-manage
+        image: docker-registry.cluster.dfwsgroup.cn/library/wkxhotel-dfws-manage:1.0
         imagePullPolicy: Always
         resources:
           requests:
@@ -166,30 +140,30 @@ spec:
         ports:
         - containerPort: 80
         volumeMounts:
-        - name: hotel-company-manage-config
+        - name: hotel-dfws-manage-config
           mountPath: /config
       volumes:
-      - name: hotel-company-manage-config
+      - name: hotel-dfws-manage-config
         configMap:
-          name: hotel-company-manageconfig
+          name: hotel-dfws-manageconfig
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: hotel-company-manage
+  name: hotel-dfws-manage
   annotations:
     #kubernetes.io/tls-acme: "true"
     kubernetes.io/ingress.class: "nginx"
 spec:
   #tls:
   #- hosts:
-  #  - hotel-company-manage.cluster.dfwsgroup.cn
-  #  secretName: hotel-company-manage-tls
+  #  - hotel-dfws-manage.cluster.dfwsgroup.cn
+  #  secretName: hotel-dfws-manage-tls
   rules:
-  - host: hotel-company-manage.cluster.dfwsgroup.cn
+  - host: hotel-dfws-manage.cluster.dfwsgroup.cn
     http:
       paths:
       - path: /
         backend:
-          serviceName: hotel-company-manage
+          serviceName: hotel-dfws-manage
           servicePort: 80
