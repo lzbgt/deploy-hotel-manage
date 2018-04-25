@@ -102,8 +102,8 @@ data:
       typeAliasesPackage: com.wkxhotel.manage.**.domain
     wxmaconfig: 
     #閰嶇疆缂撳瓨鍜宻ession瀛樺偍鏂瑰紡锛岄粯璁hcache,鍙�塺edis
-    cacheType: ehcache      
-
+    cacheType: ehcache
+    wxmaconfig: 
       appid: wx46d241f107517171
       secret: b03b8d6eff09c4eaeee9f57e7722270e 
     menu_icon: 
