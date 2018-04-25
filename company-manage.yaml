@@ -111,7 +111,7 @@ data:
 
     #########imgUrl############
     comment_grogshop: 
-      picture_url: http://s1.veimg.cn/9first/
+      picture_url: http://s1.veimg.cn/wkxhotel/
     wxmatemplate: 
       templateId: Xv19srUQEANOJ0X_QIaaJ4Q-bWqAWAEqP9CJcMg5Utc
     waiter: 
@@ -123,13 +123,13 @@ data:
       pageOrderCust: /pages/userServer/userServer
       pageOrderWaiter: /pages/index/index
     #########小程序配置信息############
-    miniappConfig: 
+    miniappConfig:
       appid: wx46d241f107517171
       secret: b03b8d6eff09c4eaeee9f57e7722270e
-      scanToPageBaseUrl: http://f3.v.veimg.cn/meadin/waiter
+      scanToPageBaseUrl: http://s1.veimg.cn/wkxhotel/w
     #########cdn配置信息############ 
     cdn:
-      cnd-link: http://localhost:5980
+      cnd-link: http://f3.v.veimg.cn/wkxhotel/wkxhotel-company-manage
 
 
 kind: ConfigMap
