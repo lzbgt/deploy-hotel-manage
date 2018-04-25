@@ -67,12 +67,13 @@ data:
       secret: b03b8d6eff09c4eaeee9f57e7722270e
       comment:
         id: jxRTSa9umNRNAZ0_AFCa3pYcn0CvlvfSD6NgYy43CTo
-    
+      getPage: /pages/orderDetails/orderDetails?
     waiter: 
       appid: wx40ffaae1d7504c6b
       secret: fd6aba2bddf077fbc22e6ab7ffef7a15
       service:
-        id: 1Z4KvXdZv18SXxWtlKPfcl-UP3kh6gHbP0rDb_vsMjU 
+        id: 1Z4KvXdZv18SXxWtlKPfcl-UP3kh6gHbP0rDb_vsMjU   
+        getPage: /pages/index/index?
 
     #########eureka############
     eureka:
