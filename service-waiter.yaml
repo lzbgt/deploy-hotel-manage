@@ -136,6 +136,7 @@ spec:
   #  - hotel-waiter.cluster.dfwsgroup.cn
   #  secretName: hotel-waiter-tls
   rules:
+  #- host: hotel-waiter.cluster.dfwsgroup.cn
   - host: hotel-waiter.cluster.dfwsgroup.cn
     http:
       paths:

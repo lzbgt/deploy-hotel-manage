@@ -107,7 +107,7 @@ data:
       appid: wx46d241f107517171
       secret: b03b8d6eff09c4eaeee9f57e7722270e 
     menu_icon: 
-      company_info_menu_url: http://f3.v.veimg.cn/wkxhotel/menu_img/
+      company_info_menu_url: http://f3.v.veimg.cn/wkxhotel/wkxhotel-company-manage
 
     #########imgUrl############
     comment_grogshop: 
@@ -186,7 +186,7 @@ spec:
   #  - hotel-company-manage.cluster.dfwsgroup.cn
   #  secretName: hotel-company-manage-tls
   rules:
-  - host: hotel-company-manage.cluster.dfwsgroup.cn
+  - host: qy.wkxhotel.com
     http:
       paths:
       - path: /

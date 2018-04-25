@@ -94,9 +94,9 @@ data:
           
     #########imgUrl############
     fastdfs: 
-      img-url: http://s1.veimg.cn/meadin/
+      img-url: http://s1.veimg.cn/wkxhotel/
     cdn:
-      cnd-link: http://localhost:5880
+      cnd-link: http://f3.v.veimg.cn/wkxhotel/wkxhotel-dfws-manage
 
     #########eureka############
     eureka:
@@ -160,7 +160,7 @@ spec:
   #  - hotel-dfws-manage.cluster.dfwsgroup.cn
   #  secretName: hotel-dfws-manage-tls
   rules:
-  - host: hotel-dfws-manage.cluster.dfwsgroup.cn
+  - host: manage.wkxhotel.com
     http:
       paths:
       - path: /

@@ -104,7 +104,7 @@ spec:
   #  - hotel-waiter.cluster.dfwsgroup.cn
   #  secretName: hotel-waiter-tls
   rules:
-  - host: hotel-gateway.cluster.dfwsgroup.cn
+  - host: api.wkxhotel.com
     http:
       paths:
       - path: /
