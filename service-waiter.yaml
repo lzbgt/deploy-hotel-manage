@@ -73,7 +73,7 @@ data:
       secret: fd6aba2bddf077fbc22e6ab7ffef7a15
       service:
         id: 1Z4KvXdZv18SXxWtlKPfcl-UP3kh6gHbP0rDb_vsMjU   
-        getPage: /pages/index/index?
+      getPage: /pages/index/index?
 
     #########eureka############
     eureka:
