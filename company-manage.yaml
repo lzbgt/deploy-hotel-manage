@@ -100,8 +100,8 @@ data:
         map-underscore-to-camel-case: true
       mapper-locations: com/wkxhotel/manage/mapper/*.xml
       typeAliasesPackage: com.wkxhotel.manage.**.domain
-    wxmaconfig: 
     #閰嶇疆缂撳瓨鍜宻ession瀛樺偍鏂瑰紡锛岄粯璁hcache,鍙�塺edis
+    
     cacheType: ehcache
     wxmaconfig: 
       appid: wx46d241f107517171
