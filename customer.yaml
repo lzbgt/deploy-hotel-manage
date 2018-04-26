@@ -3,7 +3,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: hotel-customer
+  name: wkxhotel-web-customer
   labels:
     app: hotel-customer
 spec:
