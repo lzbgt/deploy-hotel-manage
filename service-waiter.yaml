@@ -59,7 +59,7 @@ data:
 
     sms: 
       sendUrl: http://sms-interface.dfwsgroup.com/rest/v1/single_sms
-      signatureCode: md
+      signatureCode: wkx
       arrangeProject: 五颗星
       
     customer: 
