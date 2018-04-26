@@ -97,7 +97,7 @@ spec:
       containers:
       - name: hotel-statistics
         image: docker-registry.cluster.dfwsgroup.cn/library/wkxhotel-service-statistics:1.0
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         resources:
           requests:
             memory: "300Mi"

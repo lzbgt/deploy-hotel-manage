@@ -112,7 +112,7 @@ spec:
       containers:
       - name: hotel-customer
         image: docker-registry.cluster.dfwsgroup.cn/library/wkxhotel-web-customer:1.0
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         resources:
           requests:
             memory: "300Mi"
@@ -130,23 +130,23 @@ spec:
         configMap:
           name: hotel-customerconfig
 ---
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: hotel-gateway
-  annotations:
-    #kubernetes.io/tls-acme: "true"
-    kubernetes.io/ingress.class: "nginx"
-spec:
-  #tls:
-  #- hosts:
-  #  - hotel-waiter.cluster.dfwsgroup.cn
-  #  secretName: hotel-waiter-tls
-  rules:
-  - host: hotel-customer.cluster.dfwsgroup.cn
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: hotel-customer
-          servicePort: 80
+# apiVersion: extensions/v1beta1
+# kind: Ingress
+# metadata:
+#   name: hotel-customer
+#   annotations:
+#     #kubernetes.io/tls-acme: "true"
+#     kubernetes.io/ingress.class: "nginx"
+# spec:
+#   #tls:
+#   #- hosts:
+#   #  - hotel-waiter.cluster.dfwsgroup.cn
+#   #  secretName: hotel-waiter-tls
+#   rules:
+#   - host: hotel-customer.cluster.dfwsgroup.cn
+#     http:
+#       paths:
+#       - path: /
+#         backend:
+#           serviceName: hotel-customer
+#           servicePort: 80
