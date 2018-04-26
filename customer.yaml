@@ -76,10 +76,10 @@ data:
       pageOrderWaiter: /pages/index/index
     ###########mybatis#############
     mybatis:
-    config-location:
-      classpath:mybatis-config.xml
-    mapper-locations:
-      classpath:com/wkxhotel/web/customer/mapping/*.xml
+      config-location:
+        classpath:mybatis-config.xml
+      mapper-locations:
+        classpath:com/wkxhotel/web/customer/mapping/*.xml
     #########eureka############
     eureka:
       instance:
