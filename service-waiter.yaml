@@ -137,7 +137,6 @@ spec:
   #  - hotel-waiter.cluster.dfwsgroup.cn
   #  secretName: hotel-waiter-tls
   rules:
-  #- host: hotel-waiter.cluster.dfwsgroup.cn
   - host: hotel-waiter.cluster.dfwsgroup.cn
     http:
       paths:
@@ -145,5 +144,3 @@ spec:
         backend:
           serviceName: hotel-waiter
           servicePort: 80
-
-          http://hotel-waiter.cluster.dfwsgroup.cn/ft/base_service/menu_list?companyInfoId=1 
