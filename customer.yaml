@@ -112,7 +112,7 @@ spec:
       containers:
       - name: hotel-customer
         image: docker-registry.cluster.dfwsgroup.cn/library/wkxhotel-web-customer:1.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         resources:
           requests:
             memory: "300Mi"

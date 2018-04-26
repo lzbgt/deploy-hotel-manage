@@ -106,7 +106,7 @@ spec:
       containers:
       - name: hotel-waiter
         image: docker-registry.cluster.dfwsgroup.cn/library/wkxhotel-web-waiter:1.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         resources:
           requests:
             memory: "300Mi"
@@ -145,3 +145,5 @@ spec:
         backend:
           serviceName: hotel-waiter
           servicePort: 80
+
+          http://hotel-waiter.cluster.dfwsgroup.cn/ft/base_service/menu_list?companyInfoId=1 

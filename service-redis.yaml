@@ -67,7 +67,7 @@ spec:
       containers:
       - name: hotel-redis
         image: docker-registry.cluster.dfwsgroup.cn/library/wkxhotel-redis:1.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         resources:
           requests:
             memory: "300Mi"

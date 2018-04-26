@@ -75,7 +75,7 @@ spec:
       containers:
       - name: hotel-file
         image: docker-registry.cluster.dfwsgroup.cn/library/wkxhotel-file:1.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         resources:
           requests:
             memory: "300Mi"
