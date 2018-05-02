@@ -22,6 +22,9 @@ data:
     logging:
       config: classpath:env/prod/logback.xml
     spring:
+      jackson:
+        time-zone: GMT+8
+        date-format: yyyy-MM-dd HH:mm:ss
       application:
         name: wkxhotel-web-waiter
       datasource:

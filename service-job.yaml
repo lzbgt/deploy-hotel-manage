@@ -25,13 +25,16 @@ data:
     logging:
       config: classpath:env/prod/logback.xml      
     spring:
+      jackson:
+        time-zone: GMT+8
+        date-format: yyyy-MM-dd HH:mm:ss
       application:
         name: wkxhotel-service-job
     #########xxl############     
     xxl:
       job:
         admin:
-          addresses: 192.168.50.151:8980/job-manage-meadin
+          addresses: http://job.wkxhotel.com
         executor: 
           appname: wkxhotel-service-job
           ip: 192.168.50.57
