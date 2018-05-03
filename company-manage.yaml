@@ -28,11 +28,11 @@ data:
       config: classpath:env/prod/logback.xml
     security:
       basic:
-        enabled: false  
+        enabled: false
     spring:
       jackson:
         time-zone: GMT+8
-        date-format: yyyy-MM-dd HH:mm:ss   
+        date-format: yyyy-MM-dd HH:mm:ss
       http:
         multipart:
           max-file-size: 30Mb

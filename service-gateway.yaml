@@ -24,7 +24,7 @@
 #       #  key-store-password: tomcatadmin
 #       #  keyStoreType: PKCS12   
 #     logging:
-#       config: classpath:env/dev/logback.xml
+#       config: classpath:env/prod/logback.xml
 #     spring:
 #       application:
 #         name: wkxhotel-service-gateway
