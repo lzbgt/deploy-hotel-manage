@@ -14,6 +14,7 @@ spec:
     port: 80
     targetPort: 80
     nodePort: 30787
+    name: hotel-job
   type: NodePort
 ---
 apiVersion: v1
@@ -33,7 +34,7 @@ data:
     xxl:
       job:
         admin:
-          addresses: http://job.wkxhotel.com
+          addresses: http://192.168.50.151:8980
         executor: 
           appname: wkxhotel-service-job
           ip: 192.168.50.57
