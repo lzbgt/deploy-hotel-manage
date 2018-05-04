@@ -55,10 +55,8 @@ data:
           
     ###########mybatis#############
     mybatis:
-    config-location:
-      classpath:mybatis-config.xml
-    mapper-locations:
-      classpath:com/wkxhotel/service/statistics/mapping/*.xml
+      config-location: classpath:mybatis-config.xml
+      mapper-locations: classpath:com/wkxhotel/service/statistics/mapping/*.xml
       ###########短信消息#############
     sms: 
       sendUrl: http://sms-interface.dfwsgroup.com/rest/v1/single_sms

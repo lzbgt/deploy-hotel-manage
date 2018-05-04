@@ -96,8 +96,7 @@ data:
           defaultZone: http://admin:123456@eureka-0.eureka:80/eureka/,http://admin:123456@eureka-1.eureka:80/eureka/,http://admin:123456@eureka-2.eureka:80/eureka/
           
     mybatis: 
-      configuration:
-        map-underscore-to-camel-case: true
+      configuration: map-underscore-to-camel-case: true
       mapper-locations: com/wkxhotel/manage/mapper/*.xml
       typeAliasesPackage: com.wkxhotel.manage.**.domain
     #閰嶇疆缂撳瓨鍜宻ession瀛樺偍鏂瑰紡锛岄粯璁hcache,鍙�塺edis
