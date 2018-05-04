@@ -11,8 +11,8 @@ spec:
     app: hotel-job
   ports:
   - protocol: TCP
-    port: 80
-    targetPort: 80
+    port: 30787
+    targetPort: 30787
     nodePort: 30787
     name: hotel-job
   type: NodePort
@@ -91,7 +91,7 @@ spec:
             memory: "2000Mi"
             cpu: "2000m"
         ports:
-        - containerPort: 80
+        - containerPort: 30787
         volumeMounts:
         - name: hotel-job-config
           mountPath: /config
