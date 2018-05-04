@@ -23,6 +23,8 @@ data:
       tomcat:
         max-threads: 1000
         min-spare-threads: 30
+        max-http-header-size: 2097152
+        max-http-post-size: 20971520
       uri-encoding: utf-8  
     logging:
       config: classpath:env/prod/logback.xml
