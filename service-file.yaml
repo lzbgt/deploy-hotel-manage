@@ -19,6 +19,9 @@ data:
   application-kube.yml: |-
     server:
       port: 80
+      tomcat:
+        max-http-header-size: 2097152
+        max-http-post-size: 20971520
     logging:
       config: classpath:env/prod/logback.xml      
     spring:
