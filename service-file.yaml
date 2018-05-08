@@ -91,7 +91,9 @@ spec:
             cpu: "2000m"
         ports:
         - containerPort: 80
+          name: http
         - containerPort: 10086
+          name: debug
         volumeMounts:
         - name: hotel-file-config
           mountPath: /config
