@@ -12,10 +12,14 @@ spec:
   ports:
   - protocol: TCP
     port: 80
+    name: http
     targetPort: 80
   - protocol: TCP
-    port: 31086
+    name: debug
+    port: 10086
     targetPort: 10086
+    nodePort: 31087
+  type: NodePort
 ---
 apiVersion: v1
 data:

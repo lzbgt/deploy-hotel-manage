@@ -12,10 +12,14 @@ spec:
   ports:
   - protocol: TCP
     port: 80
+    name: http
     targetPort: 80
   - protocol: TCP
+    name: debug
     port: 10086
-    targetPort: 31087
+    targetPort: 10086
+    nodePort: 31086
+  type: NodePort
 ---
 apiVersion: v1
 data:
@@ -81,6 +85,7 @@ data:
           password: dfws.2017
           timeout: 10000
           expire: 1800
+          database: 0
           pool:
             # 连接池中的最大空闲连接
             max-idle: 8

@@ -76,6 +76,7 @@ data:
           port: 6379
           timeout: 10000
           expire: 1800
+          database: 0
           pool:
             # 连接池中的最大空闲连接
             max-idle: 8
