@@ -85,7 +85,7 @@ data:
           password: dfws.2017
           timeout: 10000
           expire: 1800
-          database: 0
+          database: 4
           pool:
             # 连接池中的最大空闲连接
             max-idle: 8
@@ -117,7 +117,7 @@ data:
       appid: wx46d241f107517171
       secret: b03b8d6eff09c4eaeee9f57e7722270e 
     menu_icon: 
-      company_info_menu_url: http://f3.v.veimg.cn/wkxhotel/menu_img/ 
+      company_info_menu_url: https://f3-wkx.veimg.cn/wx/menu_img/
 
 
     #########imgUrl############
@@ -140,7 +140,12 @@ data:
       scanToPageBaseUrl: http://s1.veimg.cn/wkxhotel/w
     #########cdn配置信息############ 
     cdn:
-      cnd-link: http://f3.v.veimg.cn/wkxhotel/wkxhotel-company-manage
+      cnd-link: https://f3-wkx.veimg.cn/company
+      
+    feign:
+      compression:
+        request:
+          enabled: true
 
 
 kind: ConfigMap

@@ -76,7 +76,7 @@ data:
           port: 6379
           timeout: 10000
           expire: 1800
-          database: 0
+          database: 4
           pool:
             # 连接池中的最大空闲连接
             max-idle: 8
@@ -97,7 +97,7 @@ data:
     fastdfs: 
       img-url: http://s1.veimg.cn/wkxhotel/
     cdn:
-      cnd-link: http://f3.v.veimg.cn/wkxhotel/wkxhotel-dfws-manage
+      cnd-link: https://f3-wkx.veimg.cn/manage
 
     #########eureka############
     eureka:
